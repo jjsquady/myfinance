@@ -1,0 +1,23 @@
+import:
+  - recipe/laravel.php
+
+config:
+  repository: 'git@github.com:jjsquady/myfinance.git'
+  base_path: '~/webapps'
+  application_name: 'myfinance'
+
+hosts:
+  64.227.18.14:
+    remote_user: jetsistemas
+    deploy_path: '{{base_path}}/{{application_name}}'
+
+tasks:
+  deploy:
+    - deploy:prepare
+    - deploy:vendors
+    - deploy:publish
+  deploy:db:
+    - run: 'cd {{base_path}}/{{application_name}}/current/database && touch db.sqlite'
+
+after:
+  deploy:failed: deploy:unlock
