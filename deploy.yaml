@@ -16,6 +16,7 @@ tasks:
     - deploy:prepare
     - deploy:vendors
     - deploy:publish
+    - php-fpm:reload
   deploy:db:
     - run: 'cd {{base_path}}/{{application_name}}/current/database && touch db.sqlite'
 
